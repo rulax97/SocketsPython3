@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import socket
 import datetime
 from dateutil.relativedelta import relativedelta
@@ -9,11 +11,13 @@ import sys
 
 clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 clientsocket.connect(('localhost', 8089))
+#clientsocket.bind(('localhost', 8089))
 opcion = input("Ingresa una opcion: ")
 if opcion=='U' or opcion=='u':
     opcion='U'
     mascara="XXXXXXXX"
     print("----Update----")
+    #buf= clientsocket.recv(1024)
     nombresensor=input("Ingresa el nombre del sensor: ")
     if len(nombresensor) == len(mascara):
         print("Nombre correcto!")            
@@ -89,6 +93,7 @@ if opcion=='U' or opcion=='u':
     mensaje=mensaje+str(cksum)
     mensajebytes=mensaje.encode()
     clientsocket.send(mensajebytes)
+    #clientsocket.recv(64).decode()
 elif opcion=='R' or opcion=='r':
     opcion='R'
     print("----Request----")
